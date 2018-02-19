@@ -1,6 +1,6 @@
 <?php
-// Grabs the URI and breaks it apart in case we have querystring stuff
-$request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
+
+
 
 if(getenv('JAWSDB_URL')){
     $url = getenv('JAWSDB_URL');
@@ -20,15 +20,29 @@ if(getenv('JAWSDB_URL')){
     $mysqli = new mysqli("localhost", "root", "Rice3773", "bamazon");
 }
 
-// Route it up!
-switch ($request_uri[0]) {
+// Grabs the URI and breaks it apart in case we have querystring stuff
+$request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
+
+$request_uri = explode('/',$request_uri[0]);
+
+$length = count($request_uri);
+
+for($i = 0; $i < $length; $i++){
+    $request_uri[$i] = "/" . $request_uri[$i];
+}
+
+//models
+require '../models/Product/Product.php';
+
+// Routing...
+switch ($request_uri[1]) {
     // Home page
     case '/':
         require '../views/layouts/home.php';
         break;
     //Post form page
-    case '/post':
-        require '../views/layouts/post.php';
+    case '/products':
+        require '../views/layouts/productInfo.php';
         break;
     // About page
     case '/about':

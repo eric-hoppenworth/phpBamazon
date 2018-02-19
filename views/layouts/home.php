@@ -11,25 +11,40 @@
       padding: 2em;
       text-align: center;
     }
+
+    .product {
+      margin-bottom: 15px;
+      margin-top: 15px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-  <?php
-    
-    if ($mysqli->connect_errno) {
-      // The connection failed. What do you want to do? 
-      // You could contact yourself (email?), log the error, show a nice page, etc.
-      // You do not want to reveal sensitive information
-
-      // Let's try this:
-      echo "Sorry, this website is experiencing problems.";
-    }
-    $result = $mysqli -> query("Select * from products;");
-    while($row = $result -> fetch_assoc()){
-      require "../views/components/product.php";
-    }
-  ?>
+    <div class = "row">
+      
+    </div>
+    <div class = "row">
+      <div class = "col-4 product">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">Add New Product</h5>
+            <a class = "btn btn-primary" href = "/products">Create</a>
+          </div>
+        </div>
+      </div>
+      <?php
+        
+        if ($mysqli->connect_errno) {
+          echo "Sorry, this website is experiencing problems.";
+        }
+        $result = $mysqli -> query("Select * from products;");
+        while($row = $result -> fetch_assoc()){
+          $product = new Product($row);
+          require "../views/components/product.php";
+        }
+      ?>
+      
+    </div>
 
   </div>
 </body>
