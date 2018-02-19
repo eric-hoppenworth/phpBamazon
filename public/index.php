@@ -2,9 +2,12 @@
 // Grabs the URI and breaks it apart in case we have querystring stuff
 $request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
 
-getenv('JAWSDB_URL')
+if(getenv('JAWSDB_URL')){
+    $mysqli = new mysqli(getenv('JAWSDB_URL'));
+} else {
+    $mysqli = new mysqli("localhost", "root", "Rice3773", "bamazon");
+}
 
-$mysqli = new mysqli("localhost", "root", "Rice3773", "bamazon");
 // Route it up!
 switch ($request_uri[0]) {
     // Home page
