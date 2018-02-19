@@ -35,6 +35,8 @@ for($i = 0; $i < $length; $i++){
 require '../models/Product/Product.php';
 
 // Routing...
+error_log("hello, this is a test!\n");
+error_log("$request_uri[1]");
 switch ($request_uri[1]) {
     // Home page
     case '/':
